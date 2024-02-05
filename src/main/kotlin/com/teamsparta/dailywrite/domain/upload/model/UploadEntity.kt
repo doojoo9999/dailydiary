@@ -11,7 +11,7 @@ import java.time.LocalDateTime
 @Table(name = "storage")
 @EntityListeners(AuditingEntityListener::class)
 class UploadEntity (
-    @Column (name = "fileUrl", nullable = false)
+    @Column (name = "fileurl", nullable = false)
     var fileUrl: String,
 
     @ManyToOne
