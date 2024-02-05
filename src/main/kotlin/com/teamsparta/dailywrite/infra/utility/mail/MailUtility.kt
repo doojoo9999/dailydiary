@@ -12,7 +12,7 @@ class MailUtility(
 
     fun getRandomString() : String {
         val length = 6
-        val randomId = UUID.randomUUID().toString().substring(0..length)
+        val randomId = UUID.randomUUID().toString().substring(0 until length)
 
         return randomId
     }

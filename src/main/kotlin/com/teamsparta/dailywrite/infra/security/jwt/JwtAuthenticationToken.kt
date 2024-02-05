@@ -3,6 +3,7 @@ package com.teamsparta.dailywrite.infra.security.jwt
 import com.teamsparta.dailywrite.infra.security.UserPrincipal
 import org.springframework.security.authentication.AbstractAuthenticationToken
 import org.springframework.security.web.authentication.WebAuthenticationDetails
+import org.springframework.stereotype.Component
 
 class JwtAuthenticationToken(
     private val principal: UserPrincipal,

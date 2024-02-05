@@ -48,6 +48,8 @@ dependencies {
     implementation("org.springframework.boot:spring-boot-starter-security")
     //jpa
     implementation("org.springframework.boot:spring-boot-starter-data-jpa")
+    //validation
+    implementation("org.springframework.boot:spring-boot-starter-validation")
     //security
     testImplementation("org.springframework.security:spring-security-test")
     runtimeOnly("org.postgresql:postgresql")

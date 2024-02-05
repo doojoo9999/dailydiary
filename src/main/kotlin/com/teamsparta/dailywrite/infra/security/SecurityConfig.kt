@@ -2,12 +2,18 @@ package com.teamsparta.dailywrite.infra.security
 
 import com.teamsparta.dailywrite.infra.security.jwt.JwtAuthenticationFilter
 import org.springframework.context.annotation.Bean
+import org.springframework.context.annotation.Configuration
+import org.springframework.security.config.annotation.method.configuration.EnableMethodSecurity
 import org.springframework.security.config.annotation.web.builders.HttpSecurity
+import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity
 import org.springframework.security.web.AuthenticationEntryPoint
 import org.springframework.security.web.SecurityFilterChain
 import org.springframework.security.web.access.AccessDeniedHandler
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter
 
+@Configuration
+@EnableMethodSecurity
+@EnableWebSecurity
 class SecurityConfig(
     private val jwtAuthenticationFilter: JwtAuthenticationFilter,
     private val authenticationEntryPoint: AuthenticationEntryPoint,
@@ -22,9 +28,9 @@ class SecurityConfig(
             .csrf { it.disable() }
             .authorizeHttpRequests {
                 it.requestMatchers (
-                    "/api/users/signin",
-                    "/api/users/signup",
-                    "/api/users/email",
+                    "/api/v1/users/login",
+                    "/api/v1/users/signup",
+                    "/api/v1/users/email",
                     "/swagger-ui/**",
                     "/v3/api-docs/**",
                 ).permitAll()

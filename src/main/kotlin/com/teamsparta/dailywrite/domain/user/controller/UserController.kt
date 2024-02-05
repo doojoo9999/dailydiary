@@ -31,6 +31,7 @@ class UserController(
             .body(userService.sendMail(mailRequest))
     }
 
+    @PostMapping("/signup")
     fun signUp(
         @RequestBody signUpRequest : SignUpRequest
     ) : ResponseEntity<UserResponse> {
@@ -39,6 +40,7 @@ class UserController(
             .body(userService.signUp(signUpRequest))
     }
 
+    @PostMapping("/login")
     fun login(
         @RequestBody loginRequest: LoginRequest
     ) : ResponseEntity<LoginResponse> {
