@@ -12,13 +12,16 @@ class UserEntity (
     @Column(name = "password", nullable = false)
     val password : String,
 
+    @Column(name = "nickname", nullable = false)
+    val nickname : String,
+
     @Enumerated(EnumType.STRING)
     @Column(name = "roles", nullable = false)
     val role : UserRole
 ){
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    val id : Long = 0
+    val id : Long = 0L
 }
 
 fun UserEntity.toResponse() : UserResponse {
