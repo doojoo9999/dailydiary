@@ -1,7 +1,7 @@
 package com.teamsparta.dailywrite.infra.security.jwt
 
 import com.fasterxml.jackson.databind.ObjectMapper
-import com.teamsparta.dailywrite.domain.exception.dto.ErrorResponse
+import com.teamsparta.dailywrite.domain.global.exception.dto.ErrorResponse
 import jakarta.servlet.http.HttpServletRequest
 import jakarta.servlet.http.HttpServletResponse
 import org.springframework.http.MediaType

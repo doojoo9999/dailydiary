@@ -1,6 +1,6 @@
 package com.teamsparta.dailywrite.domain.post.service
 
-import com.teamsparta.dailywrite.domain.exception.ModelNotFoundException
+import com.teamsparta.dailywrite.domain.global.exception.ModelNotFoundException
 import com.teamsparta.dailywrite.domain.post.dto.request.CreatePostRequest
 import com.teamsparta.dailywrite.domain.post.dto.request.DeletePostRequest
 import com.teamsparta.dailywrite.domain.post.dto.request.UpdatePostRequest

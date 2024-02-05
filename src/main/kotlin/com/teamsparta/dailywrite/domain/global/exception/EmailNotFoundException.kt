@@ -1,4 +1,4 @@
-package com.teamsparta.dailywrite.domain.exception
+package com.teamsparta.dailywrite.domain.global.exception
 
 data class EmailNotFoundException (
     val modelName : String,
