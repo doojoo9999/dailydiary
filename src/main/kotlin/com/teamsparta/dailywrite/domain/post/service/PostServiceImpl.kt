@@ -72,10 +72,10 @@ class PostServiceImpl(
         return postRepository.searchByNickname(nickname, pageable).map { it.toResponse() }
     }
 
-    override fun getPostListByNickname(pageable: Pageable, nickname: String): Page<PostResponse> {
-        val user = userRepository.findByNickname(nickname) ?: throw IllegalStateException("없는 닉네임입니다.")
-        val post = postRepository.findByUser(pageable, user)
-
-        return post.map { it.toResponse() }
-    }
+//    override fun getPostListByNickname(nickname: String, pageable: Pageable): Page<PostResponse> {
+//        val user = userRepository.findByNickname(nickname) ?: throw IllegalStateException("없는 닉네임입니다.")
+//        val post = postRepository.findByUserId(user.id, pageable)
+//
+//        return post.map { it.toResponse() }
+//    }
 }

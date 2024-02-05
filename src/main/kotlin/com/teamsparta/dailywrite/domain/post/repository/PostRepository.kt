@@ -8,5 +8,4 @@ import java.awt.print.Pageable
 
 interface PostRepository : JpaRepository<PostEntity, Long>, CustomPostRepository {
 
-    fun findByUser (pageable: org.springframework.data.domain.Pageable, user: UserEntity) : Page<PostEntity>
 }

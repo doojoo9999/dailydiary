@@ -46,7 +46,7 @@ class PostController (
 
         return ResponseEntity
             .status(HttpStatus.OK)
-            .body(postService.getPostListByNickname(pageable, nickname))
+            .body(postService.getPostListByNickname(nickname, pageable))
     }
 
     @PostMapping()

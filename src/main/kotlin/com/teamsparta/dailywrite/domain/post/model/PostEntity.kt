@@ -24,19 +24,22 @@ class PostEntity(
 
     @ManyToOne (fetch = FetchType.LAZY)
     @JoinColumn(name = "user_id")
-    val user: UserEntity
+    val user: UserEntity,
+
+
+
 ) {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    var id : Long = 0
+    var id: Long = 0
 
     @CreatedDate
     @Column(name = "created_at", updatable = false, nullable = false)
-    lateinit var createdAt : LocalDateTime
+    lateinit var createdAt: LocalDateTime
 
     @LastModifiedDate
     @Column(name = "updated_at", nullable = false)
-    lateinit var updatedAt : LocalDateTime
+    lateinit var updatedAt: LocalDateTime
 
 }
 
