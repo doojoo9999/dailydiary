@@ -8,6 +8,7 @@ import com.teamsparta.dailywrite.domain.user.dto.response.MailResponse
 import com.teamsparta.dailywrite.domain.user.dto.response.SignUpResponse
 import com.teamsparta.dailywrite.domain.user.dto.response.UserResponse
 import com.teamsparta.dailywrite.domain.user.service.UserService
+import jakarta.validation.Valid
 import org.springframework.http.HttpStatus
 import org.springframework.http.RequestEntity
 import org.springframework.http.ResponseEntity
@@ -24,6 +25,7 @@ class UserController(
 ) {
     @PostMapping("/email")
     fun email(
+        @Valid
         @RequestBody mailRequest : MailRequest
     ) : ResponseEntity <MailResponse> {
         return ResponseEntity
@@ -33,6 +35,7 @@ class UserController(
 
     @PostMapping("/signup")
     fun signUp(
+        @Valid
         @RequestBody signUpRequest : SignUpRequest
     ) : ResponseEntity<UserResponse> {
         return ResponseEntity
@@ -42,6 +45,7 @@ class UserController(
 
     @PostMapping("/login")
     fun login(
+        @Valid
         @RequestBody loginRequest: LoginRequest
     ) : ResponseEntity<LoginResponse> {
 

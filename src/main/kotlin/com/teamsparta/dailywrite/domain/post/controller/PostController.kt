@@ -6,6 +6,7 @@ import com.teamsparta.dailywrite.domain.post.dto.request.UpdatePostRequest
 import com.teamsparta.dailywrite.domain.post.dto.response.PostResponse
 import com.teamsparta.dailywrite.domain.post.service.PostService
 import com.teamsparta.dailywrite.infra.security.UserPrincipal
+import jakarta.validation.Valid
 import org.springframework.http.HttpStatus
 import org.springframework.http.ResponseEntity
 import org.springframework.security.core.annotation.AuthenticationPrincipal
@@ -22,6 +23,7 @@ class PostController (
 
     @PostMapping()
     fun createPost(
+        @Valid
         @RequestBody request: CreatePostRequest,
         @AuthenticationPrincipal userPrincipal : UserPrincipal
     ):ResponseEntity<PostResponse>{
@@ -32,6 +34,7 @@ class PostController (
 
     @PutMapping("/{postId}")
     fun updatePost(
+        @Valid
         @PathVariable postId : Long,
         @RequestBody request : UpdatePostRequest,
         @AuthenticationPrincipal userPrincipal : UserPrincipal
@@ -43,6 +46,7 @@ class PostController (
 
     @DeleteMapping("/{postId}")
     fun deletePost(
+        @Valid
         @PathVariable postId: Long,
         @RequestBody request : DeletePostRequest,
         @AuthenticationPrincipal userPrincipal : UserPrincipal

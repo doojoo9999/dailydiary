@@ -34,6 +34,10 @@ class UserServiceImpl(
         val getAuthCode = mailRepository.findAllByEmail(request.email)
             ?: throw EmailNotFoundException("Email", request.email)
 
+        if (!request.password.equals(request.checkPassword)){
+            throw IllegalStateException("비밀번호와 확인 비밀번호가 서로 다릅니다.")
+        }
+
         if (getAuthCode.none { it.authCode == request.authCode }) {
             throw IllegalStateException("인증 코드가 틀렸습니다.")
         }
