@@ -45,7 +45,7 @@ class UserServiceImpl(
 
         val now = LocalDateTime.now()
         val authMail = getAuthCode.find { it.authCode == request.authCode}
-        if (authMail != null && Duration.between(authMail.sendDate, now).toMinutes() > 15)
+        if (authMail != null && Duration.between(authMail.sendDate, now).toMinutes() > 15) // 과제는 5분인데 15분 해둠
             throw IllegalStateException("인증 번호가 만료된 상태입니다.")
 
         if (userRepository.existsByEmail(request.email)) {

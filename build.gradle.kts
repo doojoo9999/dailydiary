@@ -7,6 +7,7 @@ plugins {
     kotlin("plugin.spring") version "1.9.22"
     kotlin("plugin.noarg") version "1.9.21"
     kotlin("kapt") version "1.9.21"
+    kotlin("plugin.serialization") version "1.9.21"
 }
 
 noArg {
@@ -70,7 +71,7 @@ dependencies {
     annotationProcessor ("jakarta.annotation:jakarta.annotation-api")
     annotationProcessor ("jakarta.persistence:jakarta.persistence-api")
     //storage
-    implementation("io.github.jan-tennert.supabase:storage-kt:2.0.4")
+    implementation("io.github.jan-tennert.supabase:storage-kt:2.1.2")
     implementation("io.ktor:ktor-client-cio:2.3.7")
 
 }
