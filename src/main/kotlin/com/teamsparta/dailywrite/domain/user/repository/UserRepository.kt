@@ -10,4 +10,6 @@ interface UserRepository : JpaRepository <UserEntity, Long> {
 
     fun existsByNickname(nickname : String) : Boolean
 
+    fun findByNickname(nickname : String) : UserEntity?
+
 }

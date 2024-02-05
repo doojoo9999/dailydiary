@@ -35,6 +35,20 @@ class PostController (
 
     }
 
+    @GetMapping("/nicknamelist")
+    fun getPostListByNickname(
+        @PageableDefault(
+            size = 5,
+            sort = ["created_at"]
+        ) pageable : Pageable,
+        @RequestParam nickname: String,
+    ) : ResponseEntity<Page<PostResponse>> {
+
+        return ResponseEntity
+            .status(HttpStatus.OK)
+            .body(postService.getPostListByNickname(pageable, nickname))
+    }
+
     @PostMapping()
     fun createPost(
         @Valid

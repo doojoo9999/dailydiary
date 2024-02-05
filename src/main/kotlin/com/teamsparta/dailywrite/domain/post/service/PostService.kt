@@ -22,4 +22,6 @@ interface PostService {
     fun searchByTitle (pageable: Pageable, title: String) : Page<PostResponse>
 
     fun searchByNickname (pageable: Pageable, nickname : String) : Page<PostResponse>
+
+    fun getPostListByNickname (pageable: Pageable, nickname: String) : Page<PostResponse>
 }
