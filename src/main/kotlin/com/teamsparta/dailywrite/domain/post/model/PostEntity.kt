@@ -9,8 +9,12 @@ class PostEntity(
 
     @Column(name = "title")
     var title: String,
+
     @Column(name = "content")
     var content: String,
+
+    @Column(name = "condition")
+    var condition: Condition
 
 //    @ManyToOne (fetch = FetchType.LAZY)
 //    @JoinColumn(name = "user_id")
@@ -24,6 +28,7 @@ class PostEntity(
 fun PostEntity.toResponse() : PostResponse {
     return PostResponse(
         title = title,
-        content = content
+        content = content,
+        condition = condition
     )
 }

@@ -25,7 +25,8 @@ class PostServiceImpl(
         val userCheck = userPrincipal.id
         return postRepository.save(PostEntity(
             title = request.title,
-            content = request.content
+            content = request.content,
+            condition = request.condition
         )
         ).toResponse()
     }
@@ -34,10 +35,11 @@ class PostServiceImpl(
         val userCheck = userPrincipal.id
         val post = postRepository.findByIdOrNull(postId) ?: throw ModelNotFoundException("PostId", postId)
 
-        val (title, content) = request
+        val (title, content, condition) = request
 
         post.title = title
         post.content = content
+        post.condition = condition
 
         return postRepository.save(post).toResponse()
 
