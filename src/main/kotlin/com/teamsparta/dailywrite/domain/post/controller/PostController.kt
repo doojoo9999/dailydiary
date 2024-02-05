@@ -7,6 +7,9 @@ import com.teamsparta.dailywrite.domain.post.dto.response.PostResponse
 import com.teamsparta.dailywrite.domain.post.service.PostService
 import com.teamsparta.dailywrite.infra.security.UserPrincipal
 import jakarta.validation.Valid
+import org.springframework.data.domain.Page
+import org.springframework.data.domain.Pageable
+import org.springframework.data.web.PageableDefault
 import org.springframework.http.HttpStatus
 import org.springframework.http.ResponseEntity
 import org.springframework.security.core.annotation.AuthenticationPrincipal
@@ -19,7 +22,18 @@ class PostController (
 ){
 
     @GetMapping()
-    fun getPostList(){}
+    fun getPostList(
+        @PageableDefault(
+            size = 5,
+            sort = ["title"]
+        ) pageable : Pageable,
+    ) : ResponseEntity<Page<PostResponse>> {
+
+        return ResponseEntity
+            .status(HttpStatus.OK)
+            .body(postService.getPaginatedPostList(pageable))
+
+    }
 
     @PostMapping()
     fun createPost(
@@ -54,6 +68,33 @@ class PostController (
         return postService.deletePost(postId, request, userPrincipal)
     }
 
+    @GetMapping("/title")
+    fun searchByTitle(
+        @PageableDefault(
+            size = 5,
+            sort = ["created_at"]
+        ) pageable: Pageable,
+        @RequestParam title : String
+    ) : ResponseEntity<Page<PostResponse>> {
 
+        return ResponseEntity
+            .status(HttpStatus.OK)
+            .body(postService.searchByTitle(pageable, title))
+    }
+
+    @GetMapping("/nickname")
+    fun searchByNickname(
+        @PageableDefault(
+            size = 5,
+            sort = ["created_at"]
+        ) pageable: Pageable,
+        @RequestParam nickname : String
+    ) : ResponseEntity<Page<PostResponse>> {
+
+        return ResponseEntity
+            .status(HttpStatus.OK)
+            .body(postService.searchByNickname(pageable, nickname))
+
+    }
 
 }

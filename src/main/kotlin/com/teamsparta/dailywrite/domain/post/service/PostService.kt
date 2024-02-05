@@ -5,6 +5,8 @@ import com.teamsparta.dailywrite.domain.post.dto.request.DeletePostRequest
 import com.teamsparta.dailywrite.domain.post.dto.request.UpdatePostRequest
 import com.teamsparta.dailywrite.domain.post.dto.response.PostResponse
 import com.teamsparta.dailywrite.infra.security.UserPrincipal
+import org.springframework.data.domain.Page
+import org.springframework.data.domain.Pageable
 
 interface PostService {
 
@@ -15,4 +17,9 @@ interface PostService {
 
     fun deletePost(postId: Long, request : DeletePostRequest, userPrincipal: UserPrincipal) : String
 
+    fun getPaginatedPostList (pageable: Pageable) : Page<PostResponse>
+
+    fun searchByTitle (pageable: Pageable, title: String) : Page<PostResponse>
+
+    fun searchByNickname (pageable: Pageable, nickname : String) : Page<PostResponse>
 }

@@ -1,6 +1,7 @@
 package com.teamsparta.dailywrite.domain.post.service
 
 import com.teamsparta.dailywrite.domain.global.exception.ModelNotFoundException
+import com.teamsparta.dailywrite.domain.global.exception.UserNotFoundException
 import com.teamsparta.dailywrite.domain.post.dto.request.CreatePostRequest
 import com.teamsparta.dailywrite.domain.post.dto.request.DeletePostRequest
 import com.teamsparta.dailywrite.domain.post.dto.request.UpdatePostRequest
@@ -8,13 +9,17 @@ import com.teamsparta.dailywrite.domain.post.dto.response.PostResponse
 import com.teamsparta.dailywrite.domain.post.model.PostEntity
 import com.teamsparta.dailywrite.domain.post.model.toResponse
 import com.teamsparta.dailywrite.domain.post.repository.PostRepository
+import com.teamsparta.dailywrite.domain.user.repository.UserRepository
 import com.teamsparta.dailywrite.infra.security.UserPrincipal
+import org.springframework.data.domain.Page
+import org.springframework.data.domain.Pageable
 import org.springframework.data.repository.findByIdOrNull
 import org.springframework.stereotype.Service
 
 @Service
 class PostServiceImpl(
     private val postRepository: PostRepository,
+    private val userRepository: UserRepository
 ) : PostService {
 
     override fun getPostList(): List<PostResponse> {
@@ -22,17 +27,18 @@ class PostServiceImpl(
     }
 
     override fun createPost(request: CreatePostRequest, userPrincipal: UserPrincipal): PostResponse {
-        val userCheck = userPrincipal.id
+        val user = userRepository.findByIdOrNull(userPrincipal.id) ?: throw UserNotFoundException (userPrincipal.id)
         return postRepository.save(PostEntity(
             title = request.title,
             content = request.content,
-            condition = request.condition
+            condition = request.condition,
+            user = user
         )
         ).toResponse()
     }
 
     override fun updatePost(postId:Long, request: UpdatePostRequest, userPrincipal: UserPrincipal): PostResponse {
-        val userCheck = userPrincipal.id
+        val user = userRepository.findByIdOrNull(userPrincipal.id) ?: throw UserNotFoundException (userPrincipal.id)
         val post = postRepository.findByIdOrNull(postId) ?: throw ModelNotFoundException("PostId", postId)
 
         val (title, content, condition) = request
@@ -46,7 +52,7 @@ class PostServiceImpl(
     }
 
     override fun deletePost(postId: Long, request: DeletePostRequest, userPrincipal: UserPrincipal) : String{
-        val userCheck = userPrincipal.id
+        val user = userRepository.findByIdOrNull(userPrincipal.id) ?: throw UserNotFoundException (userPrincipal.id)
         val post = postRepository.findByIdOrNull(postId) ?: throw ModelNotFoundException("PostId", postId)
 
         postRepository.delete(post)
@@ -54,5 +60,15 @@ class PostServiceImpl(
         return ("삭제 완료")
     }
 
+    override fun getPaginatedPostList(pageable: Pageable): Page<PostResponse> {
+        return postRepository.findByPageable(pageable).map {it.toResponse() }
+    }
 
+    override fun searchByTitle(pageable: Pageable, title: String): Page<PostResponse> {
+        return postRepository.searchByTitle(title, pageable).map {it.toResponse()}
+    }
+
+    override fun searchByNickname(pageable: Pageable, nickname: String): Page<PostResponse> {
+        return postRepository.searchByNickname(nickname, pageable).map { it.toResponse() }
+    }
 }
