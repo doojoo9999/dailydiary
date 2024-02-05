@@ -69,6 +69,9 @@ dependencies {
     annotationProcessor ("com.querydsl:querydsl-apt:5.0.0:jakarta")
     annotationProcessor ("jakarta.annotation:jakarta.annotation-api")
     annotationProcessor ("jakarta.persistence:jakarta.persistence-api")
+    //storage
+    implementation("io.github.jan-tennert.supabase:storage-kt:2.0.4")
+    implementation("io.ktor:ktor-client-cio:2.3.7")
 
 }
 
