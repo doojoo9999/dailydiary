@@ -4,6 +4,7 @@ import com.teamsparta.dailywrite.domain.global.exception.EmailNotFoundException
 import com.teamsparta.dailywrite.domain.user.dto.request.LoginRequest
 import com.teamsparta.dailywrite.domain.user.dto.request.MailRequest
 import com.teamsparta.dailywrite.domain.user.dto.request.SignUpRequest
+import com.teamsparta.dailywrite.domain.user.dto.response.CheckNicknameResponse
 import com.teamsparta.dailywrite.domain.user.dto.response.LoginResponse
 import com.teamsparta.dailywrite.domain.user.dto.response.MailResponse
 import com.teamsparta.dailywrite.domain.user.dto.response.UserResponse
@@ -51,6 +52,10 @@ class UserServiceImpl(
             throw IllegalStateException("이미 존재하는 이메일입니다.")
         }
 
+        if (userRepository.existsByNickname(request.nickname)) {
+            throw IllegalStateException("중복된 닉네임입니다.")
+        }
+
         mailRepository.deleteByEmail(request.email)
 
         return userRepository.save(
@@ -95,5 +100,13 @@ class UserServiceImpl(
 
         return MailResponse(message = "메일 발송 완료")
 
+    }
+
+    override fun checkNickname(nickname: String): CheckNicknameResponse {
+        return if (userRepository.existsByNickname(nickname)) {
+            CheckNicknameResponse(message = "중복된 닉네임입니다.")
+        } else {
+            CheckNicknameResponse(message = "사용 가능한 닉네임입니다.")
+        }
     }
 }

@@ -3,10 +3,7 @@ package com.teamsparta.dailywrite.domain.user.controller
 import com.teamsparta.dailywrite.domain.user.dto.request.LoginRequest
 import com.teamsparta.dailywrite.domain.user.dto.request.MailRequest
 import com.teamsparta.dailywrite.domain.user.dto.request.SignUpRequest
-import com.teamsparta.dailywrite.domain.user.dto.response.LoginResponse
-import com.teamsparta.dailywrite.domain.user.dto.response.MailResponse
-import com.teamsparta.dailywrite.domain.user.dto.response.SignUpResponse
-import com.teamsparta.dailywrite.domain.user.dto.response.UserResponse
+import com.teamsparta.dailywrite.domain.user.dto.response.*
 import com.teamsparta.dailywrite.domain.user.service.UserService
 import jakarta.validation.Valid
 import org.springframework.http.HttpStatus
@@ -53,4 +50,15 @@ class UserController(
             .status(HttpStatus.OK)
             .body(userService.login(loginRequest))
     }
+
+    @PostMapping("/nickname")
+    fun checkNickname(
+        @Valid
+        @RequestParam nickname : String
+    ) : ResponseEntity<CheckNicknameResponse>{
+        return ResponseEntity
+            .status(HttpStatus.OK)
+            .body(userService.checkNickname(nickname))
+    }
+
 }
