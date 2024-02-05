@@ -1,0 +1,47 @@
+spring:
+  mail:
+    host: smtp.gmail.com
+    port: 587
+    username: doojoo0536@gmail.com
+    password: ssnh ffmc uwmj emdh
+    properties:
+      mail:
+        smtp:
+          auth: true
+          starttls:
+            enable: true
+            required: true
+          connectiontimeout: 5000
+          timeout: 5000
+          writetimeout: 5000
+    auth-code-expiration-millis: 1800000  # 30 * 60 * 1000 == 30?
+
+
+  jpa:
+    properties:
+      hibernate:
+        format_sql : true
+        highlight_sql : true
+        use_sql_comments: true
+        default_batch_fetch_size: 500
+
+
+logging:
+  level:
+    org:
+      hibernate:
+        SQL: debug
+        orm:
+          jdbc:
+            bind: trace
+
+
+      springframework:
+        security: debug
+
+
+auth:
+  jwt:
+    issuer: team.sparta.com
+    secret: vwyVsZmRFvJzW9eP6kkwLZa7nJM57Xl4
+    accessTokenExpirationHour : 168
