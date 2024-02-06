@@ -41,6 +41,11 @@ class PostServiceImpl(
         val user = userRepository.findByIdOrNull(userPrincipal.id) ?: throw UserNotFoundException (userPrincipal.id)
         val post = postRepository.findByIdOrNull(postId) ?: throw ModelNotFoundException("PostId", postId)
 
+        if (post.user.id != user.id) {
+            throw IllegalArgumentException ("글 작성자만 수정할 수 있습니다.")
+        }
+
+
         val (title, content, condition) = request
 
         post.title = title
