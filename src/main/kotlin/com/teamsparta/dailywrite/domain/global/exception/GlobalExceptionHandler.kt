@@ -1,6 +1,7 @@
 package com.teamsparta.dailywrite.domain.global.exception
 
 import com.teamsparta.dailywrite.domain.global.exception.dto.ErrorResponse
+import org.apache.coyote.Response
 import org.springframework.http.HttpStatus
 import org.springframework.http.ResponseEntity
 import org.springframework.web.bind.annotation.ExceptionHandler
@@ -28,6 +29,8 @@ class GlobalExceptionHandler {
             .status(HttpStatus.NOT_FOUND)
             .body(ErrorResponse(message = e.message))
     }
+
+
 
 
 }

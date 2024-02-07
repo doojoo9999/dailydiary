@@ -48,6 +48,7 @@ class PostRepositoryImpl : QueryDslSupport(), CustomPostRepository {
         //페이지에 게시글
         val pageCount = queryFactory
             .selectFrom(post)
+            .where(post.title.containsIgnoreCase(title))
             .offset(pageable.offset)
             .limit(pageable.pageSize.toLong())
             .fetch()
@@ -68,7 +69,10 @@ class PostRepositoryImpl : QueryDslSupport(), CustomPostRepository {
 
         // 페이지에 몇번째?
         val pageCount = queryFactory
-            .selectFrom(post)
+            .select(post)
+            .from(post)
+            .join(post.user, user)
+            .where (user.nickname.containsIgnoreCase(nickname))
             .offset(pageable.offset)
             .limit(pageable.pageSize.toLong())
             .fetch()
@@ -88,6 +92,7 @@ class PostRepositoryImpl : QueryDslSupport(), CustomPostRepository {
 
         val pageCount = queryFactory
             .selectFrom(post)
+            .where(post.createdAt.eq(date))
             .offset(pageable.offset)
             .limit(pageable.pageSize.toLong())
             .fetch()
