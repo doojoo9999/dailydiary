@@ -9,7 +9,6 @@ import com.teamsparta.dailywrite.domain.post.dto.response.PostResponse
 import com.teamsparta.dailywrite.domain.post.model.PostEntity
 import com.teamsparta.dailywrite.domain.post.model.toResponse
 import com.teamsparta.dailywrite.domain.post.repository.PostRepository
-import com.teamsparta.dailywrite.domain.upload.dto.request.UploadRequest
 import com.teamsparta.dailywrite.domain.upload.service.UploadService
 import com.teamsparta.dailywrite.domain.user.repository.UserRepository
 import com.teamsparta.dailywrite.infra.security.UserPrincipal
@@ -36,13 +35,15 @@ class PostServiceImpl(
 
         if (file != null) {
             val uploadResponse = uploadService.uploadFile(file, null, userPrincipal)
+            fileUrl = uploadResponse.uploadedUrl
         }
 
         return postRepository.save(PostEntity(
             title = request.title,
             content = request.content,
             condition = request.condition,
-            user = user
+            user = user,
+            fileUrl = fileUrl
         )
         ).toResponse()
     }
@@ -51,9 +52,16 @@ class PostServiceImpl(
         val user = userRepository.findByIdOrNull(userPrincipal.id) ?: throw UserNotFoundException (userPrincipal.id)
         val post = postRepository.findByIdOrNull(postId) ?: throw ModelNotFoundException("PostId", postId)
 
+        var fileUrl: String? = null
+
+        if (file != null) {
+            val uploadResponse = uploadService.uploadFile(file, null, userPrincipal)
+            fileUrl = uploadResponse.uploadedUrl
+        }
+
         if (post.user.id != user.id) {
             throw IllegalArgumentException ("글 작성자만 수정할 수 있습니다.")
-        }
+}
 
 
         val (title, content, condition) = request
@@ -61,6 +69,7 @@ class PostServiceImpl(
         post.title = title
         post.content = content
         post.condition = condition
+        post.fileUrl = fileUrl
 
         return postRepository.save(post).toResponse()
 

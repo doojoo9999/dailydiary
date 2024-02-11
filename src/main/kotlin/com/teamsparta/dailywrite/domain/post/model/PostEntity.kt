@@ -27,7 +27,7 @@ class PostEntity(
     val user: UserEntity,
 
     @Column(name = "file_url")
-    var fileUrl : String,
+    var fileUrl : String?,
 
 
 ) {
@@ -49,6 +49,7 @@ fun PostEntity.toResponse() : PostResponse {
     return PostResponse(
         title = title,
         content = content,
-        condition = condition
+        condition = condition,
+        fileUrl = fileUrl,
     )
 }

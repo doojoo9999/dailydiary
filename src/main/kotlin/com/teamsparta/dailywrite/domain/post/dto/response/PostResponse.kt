@@ -6,4 +6,5 @@ data class PostResponse (
     val title: String,
     val content: String,
     val condition : Condition,
+    val fileUrl : String?
 )

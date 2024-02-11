@@ -2,6 +2,7 @@ package com.teamsparta.dailywrite.domain.post.dto.request
 
 import jakarta.validation.constraints.Max
 import jakarta.validation.constraints.NotBlank
+import org.springframework.web.multipart.MultipartFile
 
 data class CreatePostRequest (
     @NotBlank (message = "NotBlank.title")
@@ -14,4 +15,5 @@ data class CreatePostRequest (
 
     @NotBlank (message = "NotBlank.condition")
     val condition : com.teamsparta.dailywrite.domain.post.model.Condition,
+
 )
