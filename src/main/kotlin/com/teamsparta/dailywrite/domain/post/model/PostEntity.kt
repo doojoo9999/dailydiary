@@ -26,6 +26,8 @@ class PostEntity(
     @JoinColumn(name = "user_id")
     val user: UserEntity,
 
+    @Column(name = "file_url")
+    var fileUrl : String,
 
 
 ) {

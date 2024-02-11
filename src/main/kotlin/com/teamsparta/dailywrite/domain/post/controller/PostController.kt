@@ -14,6 +14,7 @@ import org.springframework.http.HttpStatus
 import org.springframework.http.ResponseEntity
 import org.springframework.security.core.annotation.AuthenticationPrincipal
 import org.springframework.web.bind.annotation.*
+import org.springframework.web.multipart.MultipartFile
 
 @RestController
 @RequestMapping("/api/v1/posts")
@@ -53,11 +54,12 @@ class PostController (
     fun createPost(
         @Valid
         @RequestBody request: CreatePostRequest,
+        @RequestPart file : MultipartFile?,
         @AuthenticationPrincipal userPrincipal : UserPrincipal
     ):ResponseEntity<PostResponse>{
         return ResponseEntity
             .status(HttpStatus.CREATED)
-            .body(postService.createPost(request, userPrincipal))
+            .body(postService.createPost(request, file, userPrincipal))
     }
 
     @PutMapping("/{postId}")
@@ -65,11 +67,12 @@ class PostController (
         @Valid
         @PathVariable postId : Long,
         @RequestBody request : UpdatePostRequest,
+        @RequestPart file : MultipartFile?,
         @AuthenticationPrincipal userPrincipal : UserPrincipal
     ) : ResponseEntity<PostResponse>{
         return ResponseEntity
             .status(HttpStatus.OK)
-            .body(postService.updatePost(postId, request, userPrincipal))
+            .body(postService.updatePost(postId, request, file, userPrincipal))
     }
 
     @DeleteMapping("/{postId}")

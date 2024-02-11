@@ -7,13 +7,14 @@ import com.teamsparta.dailywrite.domain.post.dto.response.PostResponse
 import com.teamsparta.dailywrite.infra.security.UserPrincipal
 import org.springframework.data.domain.Page
 import org.springframework.data.domain.Pageable
+import org.springframework.web.multipart.MultipartFile
 
 interface PostService {
 
     fun getPostList() : List<PostResponse>
-    fun createPost(request : CreatePostRequest, userPrincipal: UserPrincipal) : PostResponse
+    fun createPost(request : CreatePostRequest, file:MultipartFile?, userPrincipal: UserPrincipal) : PostResponse
 
-    fun updatePost(postId: Long, request : UpdatePostRequest, userPrincipal: UserPrincipal) : PostResponse
+    fun updatePost(postId: Long, request : UpdatePostRequest, file:MultipartFile?, userPrincipal: UserPrincipal) : PostResponse
 
     fun deletePost(postId: Long, request : DeletePostRequest, userPrincipal: UserPrincipal) : String
 

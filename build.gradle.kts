@@ -74,6 +74,10 @@ dependencies {
     implementation("io.github.jan-tennert.supabase:storage-kt:2.1.2")
     implementation("io.ktor:ktor-client-cio:2.3.7")
 
+    //test
+    testImplementation("io.mockk:mockk:1.13.9")
+    testImplementation("io.kotest:kotest-runner-junit5:5.7.2")
+    testImplementation("io.kotest:kotest-assertions-core:5.7.2")
 }
 
 tasks.withType<KotlinCompile> {

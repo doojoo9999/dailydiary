@@ -7,6 +7,6 @@ import org.springframework.web.multipart.MultipartFile
 
 interface UploadService {
 
-    fun uploadFile (file: MultipartFile, uploadRequest: UploadRequest, userPrincipal: UserPrincipal) : UploadResponse
+    fun uploadFile (file: MultipartFile, uploadRequest: UploadRequest?, userPrincipal: UserPrincipal) : UploadResponse
 
 }

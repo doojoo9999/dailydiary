@@ -26,7 +26,7 @@ class UploadServiceImpl(
 ) : UploadService {
     override fun uploadFile(
         file: MultipartFile,
-        uploadRequest: UploadRequest,
+        uploadRequest: UploadRequest?,
         userPrincipal: UserPrincipal
     ): UploadResponse {
 
@@ -39,7 +39,11 @@ class UploadServiceImpl(
 
         val fileUrl = supabase.storage.from("$BUCKET_NAME").publicUrl(filePath)
         val user = userRepository.findByIdOrNull(userPrincipal.id) ?: throw UserNotFoundException (userPrincipal.id)
-        val post = postRepository.findByIdOrNull(uploadRequest.postId) ?: throw ModelNotFoundException ("Post id", uploadRequest.postId)
+//        val post = postRepository.findByIdOrNull(uploadRequest?.postId) ?: throw ModelNotFoundException ("Post id", uploadRequest.postId)
+
+        val post = if (uploadRequest != null) {
+            postRepository.findByIdOrNull(uploadRequest.postId)
+        } else {null}
 
         val upload = UploadEntity (
             user = user,

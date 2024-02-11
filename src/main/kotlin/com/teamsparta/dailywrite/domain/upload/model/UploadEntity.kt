@@ -20,7 +20,7 @@ class UploadEntity (
 
     @ManyToOne
     @JoinColumn(name = "post_id", nullable = true)
-    var post : PostEntity
+    var post : PostEntity?
 
 
 ){

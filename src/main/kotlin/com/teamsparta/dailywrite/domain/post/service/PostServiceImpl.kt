@@ -9,25 +9,35 @@ import com.teamsparta.dailywrite.domain.post.dto.response.PostResponse
 import com.teamsparta.dailywrite.domain.post.model.PostEntity
 import com.teamsparta.dailywrite.domain.post.model.toResponse
 import com.teamsparta.dailywrite.domain.post.repository.PostRepository
+import com.teamsparta.dailywrite.domain.upload.dto.request.UploadRequest
+import com.teamsparta.dailywrite.domain.upload.service.UploadService
 import com.teamsparta.dailywrite.domain.user.repository.UserRepository
 import com.teamsparta.dailywrite.infra.security.UserPrincipal
 import org.springframework.data.domain.Page
 import org.springframework.data.domain.Pageable
 import org.springframework.data.repository.findByIdOrNull
 import org.springframework.stereotype.Service
+import org.springframework.web.multipart.MultipartFile
 
 @Service
 class PostServiceImpl(
     private val postRepository: PostRepository,
-    private val userRepository: UserRepository
+    private val userRepository: UserRepository,
+    private val uploadService: UploadService
 ) : PostService {
 
     override fun getPostList(): List<PostResponse> {
         return postRepository.findAll().map { it.toResponse() }
     }
 
-    override fun createPost(request: CreatePostRequest, userPrincipal: UserPrincipal): PostResponse {
+    override fun createPost(request: CreatePostRequest, file:MultipartFile?, userPrincipal: UserPrincipal): PostResponse {
         val user = userRepository.findByIdOrNull(userPrincipal.id) ?: throw UserNotFoundException (userPrincipal.id)
+        var fileUrl: String? = null
+
+        if (file != null) {
+            val uploadResponse = uploadService.uploadFile(file, null, userPrincipal)
+        }
+
         return postRepository.save(PostEntity(
             title = request.title,
             content = request.content,
@@ -37,7 +47,7 @@ class PostServiceImpl(
         ).toResponse()
     }
 
-    override fun updatePost(postId:Long, request: UpdatePostRequest, userPrincipal: UserPrincipal): PostResponse {
+    override fun updatePost(postId:Long, request: UpdatePostRequest, file:MultipartFile?, userPrincipal: UserPrincipal): PostResponse {
         val user = userRepository.findByIdOrNull(userPrincipal.id) ?: throw UserNotFoundException (userPrincipal.id)
         val post = postRepository.findByIdOrNull(postId) ?: throw ModelNotFoundException("PostId", postId)
 
