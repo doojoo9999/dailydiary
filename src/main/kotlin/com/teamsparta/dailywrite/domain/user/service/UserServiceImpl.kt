@@ -16,6 +16,7 @@ import com.teamsparta.dailywrite.domain.user.repository.MailRepository
 import com.teamsparta.dailywrite.domain.user.repository.UserRepository
 import com.teamsparta.dailywrite.infra.security.jwt.JwtPlugin
 import com.teamsparta.dailywrite.infra.utility.mail.MailUtility
+import org.springframework.scheduling.annotation.Scheduled
 import org.springframework.security.crypto.password.PasswordEncoder
 import org.springframework.stereotype.Service
 import org.springframework.transaction.annotation.Transactional
@@ -109,4 +110,13 @@ class UserServiceImpl(
             CheckNicknameResponse(message = "사용 가능한 닉네임입니다.")
         }
     }
+
+    @Scheduled(cron = "0 0 0 1/1 * *")
+    override fun deleteMail() {
+
+        val mailCheck = LocalDateTime.now().minusDays(2)
+        mailRepository.deleteBySendDateBefore(mailCheck)
+
+    }
+
 }

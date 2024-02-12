@@ -17,4 +17,6 @@ interface UserService {
     fun sendMail(request : MailRequest) : MailResponse
 
     fun checkNickname(nickname : String) : CheckNicknameResponse
+
+    fun deleteMail()
 }

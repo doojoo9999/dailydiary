@@ -2,6 +2,7 @@ package com.teamsparta.dailywrite.infra.utility.mail
 
 import org.springframework.mail.javamail.JavaMailSender
 import org.springframework.mail.javamail.MimeMessageHelper
+import org.springframework.scheduling.annotation.Scheduled
 import org.springframework.stereotype.Component
 import java.util.UUID
 
@@ -31,4 +32,8 @@ class MailUtility(
 
         return randomString
     }
+
+
+
+
 }
