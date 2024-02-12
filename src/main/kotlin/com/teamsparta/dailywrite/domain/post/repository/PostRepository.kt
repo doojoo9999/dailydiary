@@ -9,6 +9,6 @@ import java.time.LocalDateTime
 
 interface PostRepository : JpaRepository<PostEntity, Long>, CustomPostRepository {
 
-    fun deleteByCreatedAtBefore(date : LocalDateTime)
+    fun deleteByUpdatedAtBefore(date : LocalDateTime)
 
 }

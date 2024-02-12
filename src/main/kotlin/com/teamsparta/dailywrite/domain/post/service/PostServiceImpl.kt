@@ -112,7 +112,7 @@ class PostServiceImpl(
     override fun deleteOldPost() {
 
         val postCheck = LocalDateTime.now().minusDays(90)
-        postRepository.deleteByCreatedAtBefore(postCheck)
+        postRepository.deleteByUpdatedAtBefore(postCheck)
 
 }
 
