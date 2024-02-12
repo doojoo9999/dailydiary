@@ -25,4 +25,8 @@ interface PostService {
     fun searchByNickname (pageable: Pageable, nickname : String) : Page<PostResponse>
 
 //    fun getPostListByNickname (nickname: String, pageable: Pageable) : Page<PostResponse>
+
+    fun deleteOldPost()
+
+
 }

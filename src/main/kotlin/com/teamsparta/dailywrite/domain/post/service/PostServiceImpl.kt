@@ -15,8 +15,10 @@ import com.teamsparta.dailywrite.infra.security.UserPrincipal
 import org.springframework.data.domain.Page
 import org.springframework.data.domain.Pageable
 import org.springframework.data.repository.findByIdOrNull
+import org.springframework.scheduling.annotation.Scheduled
 import org.springframework.stereotype.Service
 import org.springframework.web.multipart.MultipartFile
+import java.time.LocalDateTime
 
 @Service
 class PostServiceImpl(
@@ -106,4 +108,13 @@ class PostServiceImpl(
 //
 //        return post.map { it.toResponse() }
 //    }
+    @Scheduled(cron = "0 0 0 1/1 * *")
+    override fun deleteOldPost() {
+
+        val postCheck = LocalDateTime.now().minusDays(90)
+        postRepository.deleteByCreatedAtBefore(postCheck)
+
+}
+
+
 }
