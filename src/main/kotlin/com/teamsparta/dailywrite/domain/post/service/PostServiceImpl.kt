@@ -114,7 +114,7 @@ class PostServiceImpl(
         val postCheck = LocalDateTime.now().minusDays(90)
         postRepository.deleteByUpdatedAtBefore(postCheck)
 
-}
+    }
 
 
 }
