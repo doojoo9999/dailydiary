@@ -1,5 +1,6 @@
 package com.teamsparta.dailywrite.domain.message.model
 
+import com.teamsparta.dailywrite.domain.message.dto.response.MessageResponse
 import com.teamsparta.dailywrite.domain.user.model.UserEntity
 import jakarta.persistence.Column
 import jakarta.persistence.Entity
@@ -47,5 +48,12 @@ class MessageEntity(
     fun checkMessage () {
         this.readAt = LocalDateTime.now()
     }
+}
+
+fun MessageEntity.toResponse() : MessageResponse{
+    return MessageResponse(
+        title = title,
+        content = content,
+    )
 }
 

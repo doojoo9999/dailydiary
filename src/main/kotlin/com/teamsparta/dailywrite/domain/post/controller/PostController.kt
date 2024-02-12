@@ -64,8 +64,8 @@ class PostController (
 
     @PutMapping("/{postId}")
     fun updatePost(
-        @Valid
         @PathVariable postId : Long,
+        @Valid
         @RequestBody request : UpdatePostRequest,
         @RequestPart file : MultipartFile?,
         @AuthenticationPrincipal userPrincipal : UserPrincipal

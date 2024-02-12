@@ -2,23 +2,31 @@ package com.teamsparta.dailywrite.domain.message.controller
 
 import com.teamsparta.dailywrite.domain.message.dto.request.SendMessageRequest
 import com.teamsparta.dailywrite.domain.message.dto.response.MessageResponse
+import com.teamsparta.dailywrite.domain.message.service.MessageService
+import com.teamsparta.dailywrite.infra.security.UserPrincipal
 import org.apache.coyote.Response
 import org.springframework.http.HttpStatus
 import org.springframework.http.ResponseEntity
+import org.springframework.security.core.annotation.AuthenticationPrincipal
+import org.springframework.web.bind.annotation.PostMapping
 import org.springframework.web.bind.annotation.RequestBody
 import org.springframework.web.bind.annotation.RequestMapping
 import org.springframework.web.bind.annotation.RestController
 
 @RestController
 @RequestMapping("/api/v1/message")
-class MessageController {
+class MessageController(
+    private val messageService : MessageService
+) {
 
+    @PostMapping()
     fun sendMessage(
-        @RequestBody sendMessageRequest: SendMessageRequest
+        @RequestBody request: SendMessageRequest,
+        @AuthenticationPrincipal userPrincipal: UserPrincipal,
     ) : ResponseEntity<MessageResponse> {
         return ResponseEntity
             .status(HttpStatus.OK)
-            .body(messageService.sendMessage(sendMessageRequest))
+            .body(messageService.sendMessage(request, userPrincipal))
     }
 
     fun getMessage() {
