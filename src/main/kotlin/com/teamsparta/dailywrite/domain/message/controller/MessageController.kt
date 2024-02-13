@@ -1,7 +1,9 @@
 package com.teamsparta.dailywrite.domain.message.controller
 
+import com.teamsparta.dailywrite.domain.message.dto.request.ReadMessageRequest
 import com.teamsparta.dailywrite.domain.message.dto.request.SendMessageRequest
 import com.teamsparta.dailywrite.domain.message.dto.response.MessageResponse
+import com.teamsparta.dailywrite.domain.message.dto.response.ReadMessageResponse
 import com.teamsparta.dailywrite.domain.message.service.MessageService
 import com.teamsparta.dailywrite.infra.security.UserPrincipal
 import org.apache.coyote.Response
@@ -27,6 +29,15 @@ class MessageController(
         return ResponseEntity
             .status(HttpStatus.OK)
             .body(messageService.sendMessage(request, userPrincipal))
+    }
+
+    fun readMessage(
+        @RequestBody request : ReadMessageRequest,
+        @AuthenticationPrincipal userPrincipal: UserPrincipal,
+    ) : ResponseEntity<Any> {
+        return ResponseEntity
+            .status(HttpStatus.OK)
+            .body(messageService.readMessage(request, userPrincipal))
     }
 
     fun getMessage() {

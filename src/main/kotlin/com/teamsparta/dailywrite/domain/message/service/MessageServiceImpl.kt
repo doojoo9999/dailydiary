@@ -1,8 +1,11 @@
 package com.teamsparta.dailywrite.domain.message.service
 
+import com.teamsparta.dailywrite.domain.global.exception.ModelNotFoundException
 import com.teamsparta.dailywrite.domain.global.exception.UserNotFoundException
+import com.teamsparta.dailywrite.domain.message.dto.request.ReadMessageRequest
 import com.teamsparta.dailywrite.domain.message.dto.request.SendMessageRequest
 import com.teamsparta.dailywrite.domain.message.dto.response.MessageResponse
+import com.teamsparta.dailywrite.domain.message.dto.response.ReadMessageResponse
 import com.teamsparta.dailywrite.domain.message.model.MessageEntity
 import com.teamsparta.dailywrite.domain.message.repository.MessageRepository
 import com.teamsparta.dailywrite.domain.user.repository.UserRepository
@@ -28,5 +31,16 @@ class MessageServiceImpl(
 
         return MessageResponse(message = "발송 완료")
     }
+
+    override fun readMessage(request: ReadMessageRequest, userPrincipal: UserPrincipal) {
+        val user = userRepository.findByIdOrNull(userPrincipal.id) ?: throw UserNotFoundException (userPrincipal.id)
+        val message = messageRepository.findByIdOrNull(request.id) ?: throw ModelNotFoundException ("Message Id", request.id)
+
+        message.readAt
+
+        messageRepository.save(message)
+
+    }
+
 
 }
