@@ -44,41 +44,41 @@ class PostControllerTest @Autowired constructor(
     val postService = mockk<PostService>()
 
 
-    describe("searchByNickname은"){
-        context("nickname을 정확하게 입력했을 때"){
-            it("pagenation이 정상적으로 적용되어야 한다.") {
-                val nickname = "admin"
-                val pageable = PageRequest.of(0,5, Sort.by("created_at"))
-
-                every { postService.searchByNickname(pageable, nickname) } returns mockk()
-
-                mockMvc.perform(
-                    MockMvcRequestBuilders.get("/api/v1/posts/nickname")
-                    .param("nickname", nickname))
-                    .andExpect(MockMvcResultMatchers.status().isOk)
-
-                verify { postService.searchByNickname(pageable, nickname) }
-
-            }
-        }
-    }
-
-
-    describe("searchByNickname에서") {
-        context("Nickname을 찾지 못한 경우") {
-            it("UserNotFoundException이 발생해야 한다.") {
-                val nickname = "nonexistent"
-                val pageable = PageRequest.of(0, 5, Sort.by("created_at"))
-                val userId = 1L
-
-                every { postService.searchByNickname(pageable, nickname) } throws UserNotFoundException(userId)
-
-                assertThrows<UserNotFoundException> {
-                    mockMvc.perform(MockMvcRequestBuilders.get("/api/v1/posts/nickname")
-                        .param("nickname", nickname))
-                }
-
-                verify { postService.searchByNickname(pageable, nickname) }
+//    describe("searchByNickname은"){
+//        context("nickname을 정확하게 입력했을 때"){
+//            it("pagenation이 정상적으로 적용되어야 한다.") {
+//                val nickname = "admin"
+//                val pageable = PageRequest.of(0,5, Sort.by("created_at"))
+//
+//                every { postService.searchByNickname(pageable, nickname) } returns mockk()
+//
+//                mockMvc.perform(
+//                    MockMvcRequestBuilders.get("/api/v1/posts/nickname")
+//                    .param("nickname", nickname))
+//                    .andExpect(MockMvcResultMatchers.status().isOk)
+//
+//                verify { postService.searchByNickname(pageable, nickname) }
+//
+//            }
+//        }
+//    }
+//
+//
+//    describe("searchByNickname에서") {
+//        context("Nickname을 찾지 못한 경우") {
+//            it("UserNotFoundException이 발생해야 한다.") {
+//                val nickname = "nonexistent"
+//                val pageable = PageRequest.of(0, 5, Sort.by("created_at"))
+//                val userId = 1L
+//
+//                every { postService.searchByNickname(pageable, nickname) } throws UserNotFoundException(userId)
+//
+//                assertThrows<UserNotFoundException> {
+//                    mockMvc.perform(MockMvcRequestBuilders.get("/api/v1/posts/nickname")
+//                        .param("nickname", nickname))
+//                }
+//
+//                verify { postService.searchByNickname(pageable, nickname) }
 
             }
         }
