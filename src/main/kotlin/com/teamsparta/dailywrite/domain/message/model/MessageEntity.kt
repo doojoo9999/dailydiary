@@ -50,10 +50,10 @@ class MessageEntity(
     }
 }
 
-fun MessageEntity.toResponse() : MessageResponse{
-    return MessageResponse(
-        title = title,
-        content = content,
-    )
-}
+//fun MessageEntity.toResponse() : MessageResponse{
+//    return MessageResponse(
+//        title = title,
+//        content = content,
+//    )
+//}
 
