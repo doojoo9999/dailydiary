@@ -2,6 +2,7 @@ package com.teamsparta.dailywrite.domain.message.service
 
 import com.teamsparta.dailywrite.domain.global.exception.ModelNotFoundException
 import com.teamsparta.dailywrite.domain.global.exception.UserNotFoundException
+import com.teamsparta.dailywrite.domain.message.dto.request.DeleteMessageRequest
 import com.teamsparta.dailywrite.domain.message.dto.request.ReadMessageRequest
 import com.teamsparta.dailywrite.domain.message.dto.request.SendMessageRequest
 import com.teamsparta.dailywrite.domain.message.dto.response.MessageResponse
@@ -39,6 +40,14 @@ class MessageServiceImpl(
         message.readAt
 
         messageRepository.save(message)
+
+    }
+
+    override fun deleteMessage(request: DeleteMessageRequest, userPrincipal: UserPrincipal) {
+        val user = userRepository.findByIdOrNull(userPrincipal.id) ?: throw UserNotFoundException (userPrincipal.id)
+        val message = messageRepository.findByIdOrNull(request.id) ?: throw ModelNotFoundException ("Message Id", request.id)
+
+        messageRepository.delete(message)
 
     }
 

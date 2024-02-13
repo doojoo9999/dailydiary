@@ -1,5 +1,6 @@
 package com.teamsparta.dailywrite.domain.message.controller
 
+import com.teamsparta.dailywrite.domain.message.dto.request.DeleteMessageRequest
 import com.teamsparta.dailywrite.domain.message.dto.request.ReadMessageRequest
 import com.teamsparta.dailywrite.domain.message.dto.request.SendMessageRequest
 import com.teamsparta.dailywrite.domain.message.dto.response.MessageResponse
@@ -44,8 +45,13 @@ class MessageController(
 
     }
 
-    fun deleteMessage() {
-
+    fun deleteMessage(
+        @RequestBody request : DeleteMessageRequest,
+        @AuthenticationPrincipal userPrincipal: UserPrincipal,
+    ) : ResponseEntity<Unit> {
+        return ResponseEntity
+            .status(HttpStatus.NO_CONTENT)
+            .build()
     }
 
 
